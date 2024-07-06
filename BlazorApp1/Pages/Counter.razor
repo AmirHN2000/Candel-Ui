@@ -1,0 +1,132 @@
+﻿@page "/counter"
+
+<DemoContainer>
+    <ApexChart TItem="StockPrice"
+               XAxisType="XAxisType.Datetime"
+               Height="500"
+               >
+
+        <ApexCandleSeries TItem="StockPrice"
+                          Items="stockPrices"
+                          Name="Apex Stock Price"
+                          XValue="@(e => e.Date.DayOnly().ToUnixTimeMilliseconds())"
+                          Open="@(e => e.Open)"
+                          High="@(e => e.High)"
+                          Low="@(e => e.Low)"
+                          Close="@(e => e.Close)"
+                          OrderByDescending="e=> e.X" 
+                          Stroke="@(new SeriesStroke{ Width=1 })"
+        />
+
+        <ApexPointSeries Items=stockPrices
+                         TItem="StockPrice"
+                         Name="Line"
+                         SeriesType="SeriesType.Line"
+                         XValue="@(e => e.Date.DayOnly().ToUnixTimeMilliseconds())"
+                         YValue="@(e => e.Low - 3)"
+                         OrderByDescending="@(e=> e.X)"
+                         Stroke="@(new SeriesStroke{ Width=3, DashSpace=3, Color="#ff3300" })"
+        />
+
+
+
+    </ApexChart>
+</DemoContainer>
+
+@code {
+    private List<StockPrice> stockPrices { get; set; } = SampleData.GetStockPrices();
+  
+    
+    
+    public class StockPrice
+    {
+        public string  Company { get; set; }
+        public DateTimeOffset Date { get; set; }
+        public decimal Open { get; set; }
+        public decimal High { get; set; }
+        public decimal Low { get; set; }
+        public decimal Close { get; set; }
+              
+
+        public int Volume { get; set; }
+    }
+    
+    
+    public static class SampleData
+    {
+        public static List<StockPrice> GetStockPrices()
+        {
+            return new List<StockPrice>
+            {
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-30), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-29), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-28), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-27), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-26), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-25), Open = 13.2m, High = 12.9m, Low = 10.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-24), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-23), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-22), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-21), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-20), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-19), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-18), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-17), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-16), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-15), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-14), Open = 13.2m, High = 12.9m, Low = 10.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-13), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-12), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-11), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-10), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-9), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-8), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-7), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-6), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-5), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-4), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-3), Open = 13.2m, High = 12.9m, Low = 10.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-2), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(-1), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(0), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(1), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(2), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(3), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(4), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(5), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(6), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(7), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(8), Open = 13.2m, High = 12.9m, Low = 10.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(9), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(10), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(11), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(12), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(13), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(14), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(15), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(16), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(17), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(18), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(19), Open = 13.2m, High = 12.9m, Low = 10.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(20), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(21), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(22), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(23), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(24), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(25), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(26), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(27), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(28), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(29), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(30), Open = 13.2m, High = 12.9m, Low = 10.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(31), Open = 10.1m, High = 13.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(32), Open = 12.6m, High = 13.1m, Low = 11.3m, Close = 13.2m, Volume = 8562 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(33), Open = 13.2m, High = 13.9m, Low = 11.1m, Close = 11.8m, Volume = 5932 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(34), Open = 11.8m, High = 12.4m, Low = 9.5m, Close = 12.6m, Volume = 13021 },
+                new StockPrice { Company = "ApexInc", Date = DateTimeOffset.Now.AddDays(35), Open = 12.6m, High = 13.1m, Low = 12.3m, Close = 13.2m, Volume = 8562 },
+            };
+
+
+        }
+    }
+}
